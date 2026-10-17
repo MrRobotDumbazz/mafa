@@ -7,11 +7,11 @@
 - [x] Подтверждение конституции человеком (P1) — Handoff (2026-10-17)
 
 ## Этап 1 — backend-оболочка (W1)
-- [ ] Скелет FastAPI: POST /api/v1/analyze (multipart .mov), GET /api/v1/jobs/{job_id}, `X-API-Key`, /health — строго по `contracts/api.openapi.yaml`
-- [ ] Очередь заданий: статусы processing/done/failed; лимит 5 минут на видео
-- [ ] Мок-пайплайн от `contracts/ml_events.schema.json` (fixture-события)
-- [ ] Кадры-доказательства: ffmpeg → JPEG → base64
-- [ ] Публичный деплой + X-API-Key для жюри
+- [x] Скелет API — чистый stdlib (`http.server`, внешних зависимостей нет): POST /api/v1/analyze (multipart .mov), GET /api/v1/jobs/{job_id}, `X-API-Key`, /health — по `contracts/api.openapi.yaml`; проверено живым прогоном (health/401/404/200)
+- [x] Очередь заданий: статусы processing/done/failed; лимит 5 минут на видео (ленивый watchdog)
+- [x] Мок-пайплайн от `contracts/ml_events.schema.json` (fixture-события на реальных таймкодах)
+- [x] Кадры-доказательства: ffmpeg → JPEG → base64 (X-1.mov: 2 события, кадры ~84 КБ)
+- [ ] Публичный деплой + X-API-Key для жюри — нужен хост от P1 (FAQ 23: публичный URL обязателен)
 
 ## Этап 2 — ML-ядро (P2, руками; критический путь, 80/100 баллов)
 - [ ] EDA: `datasets/open/open_labels.xlsx`, 41 видео (метка «нарушение» + таймкод)
