@@ -40,4 +40,10 @@ print('ok: job done | verdict:', d['verdict'], '| events:', len(d.get('violation
 CODE=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:$PORT/api/v1/jobs/deadbeef" -H "X-API-Key: $KEY")
 [ "$CODE" = "404" ] && echo "ok: 404 unknown job" || { echo "FAIL: expected 404, got $CODE"; exit 1; }
 
+CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "http://127.0.0.1:$PORT/web/api/v1/analyze" -F "file=@$VIDEO")
+[ "$CODE" = "200" ] && echo "ok: /web keyless analyze" || { echo "FAIL: /web keyless expected 200, got $CODE"; exit 1; }
+
+CODE=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:$PORT/api/v1/jobs/deadbeef")
+[ "$CODE" = "401" ] && echo "ok: /api still requires key" || { echo "FAIL: /api without key expected 401, got $CODE"; exit 1; }
+
 echo "SELFCHECK PASSED"

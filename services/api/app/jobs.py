@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .mlpipe.base import MLResult
 from .mlpipe.mock import MockPipeline
+from .normatives import enrich, load_catalog
 
 
 @dataclass
@@ -40,12 +41,19 @@ def _violation_dict(e):
 
 
 class JobStore:
-    def __init__(self, pipeline: MockPipeline, timeout_sec: float = 300.0, workers: int = 2) -> None:
+    def __init__(
+        self,
+        pipeline: MockPipeline,
+        timeout_sec: float = 300.0,
+        workers: int = 2,
+        catalog_path: Path | None = None,
+    ) -> None:
         self._jobs: dict[str, Job] = {}
         self._lock = threading.Lock()
         self._executor = ThreadPoolExecutor(max_workers=workers)
         self._pipeline = pipeline
         self._timeout_sec = timeout_sec
+        self._catalog_path = catalog_path
 
     def create(self, video_path: Path) -> Job:
         job = Job(job_id=uuid.uuid4().hex[:8], video_path=video_path)
@@ -86,6 +94,8 @@ class JobStore:
         try:
             result: MLResult = self._pipeline.analyze(job.video_path)
             violations = [_violation_dict(e) for e in result.events]
+            if self._catalog_path is not None:
+                enrich(violations, load_catalog(self._catalog_path))
             with self._lock:
                 job.status = "done"
                 job.verdict = "violation" if violations else "no_violation"

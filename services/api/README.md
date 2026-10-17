@@ -49,10 +49,27 @@ FORTE_API_KEY=<ключ> docker compose up -d --build
 |---|---|---|
 | `FORTE_API_KEY` / `FORTE_API_KEYS` | — | ключ(и) жюри, через запятую; без них API отдаёт 503 |
 | `FORTE_PIPELINE_CMD` | пусто (мок) | команда реального пайплайна (см. выше) |
+| `FORTE_STATIC_DIR` | пусто (выкл.) | каталог `dist/` фронтенда: backend раздаёт сайт (`/`, ассеты, SPA-fallback) |
+| `FORTE_WEB_KEYLESS` | 1 | `/web/api/v1/*` — маршрут сайта без ключа; `/api/v1/*` (жюри) **всегда** строго с `X-API-Key` (раздел 10 ТЗ) |
+| `FORTE_VIOLATION_CATALOG` | `contracts/violation_catalog.yaml` | каталог нормативов: пункты с `verified: true` подмешиваются в `violation.normative` по `type` |
 | `FORTE_PORT` | 8000 | порт слушателя |
 | `FORTE_STORAGE_DIR` | `services/api/.storage` | каталог загрузок и кадров |
 | `FORTE_MAX_UPLOAD_MB` | 200 | лимит размера файла |
 | `FORTE_JOB_TIMEOUT_SEC` | 300 | лимит обработки одного видео (раздел 10 ТЗ) |
+
+## Сайт + API жюри в одном процессе (деплой)
+
+```bash
+# на машине с сетью: сборка фронта (реальный режим = мимо моков, через /web)
+cd services/web && VITE_USE_MOCK=false VITE_API_URL=/web npm ci && npm run build
+# запуск (один процесс отдаёт и сайт, и API):
+cd ../api
+export FORTE_API_KEY=<ключ жюри> FORTE_STATIC_DIR=../web/dist
+python3 -m app.main
+```
+
+- Сайт: `http://host:8000/` — ключ не нужен (сам ходит через `/web/api/v1/*`).
+- Жюри: `/api/v1/analyze`, `/api/v1/jobs/{id}` — только с заголовком `X-API-Key`.
 
 ## curl-примеры
 

@@ -21,11 +21,29 @@ def _build_pipeline():
     return MockPipeline()
 
 
-store = JobStore(_build_pipeline(), timeout_sec=settings.job_timeout_sec)
+store = JobStore(
+    _build_pipeline(),
+    timeout_sec=settings.job_timeout_sec,
+    catalog_path=settings.violation_catalog,
+)
+
+STATIC_TYPES = {
+    ".html": "text/html; charset=utf-8",
+    ".js": "text/javascript; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".svg": "image/svg+xml",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".ico": "image/x-icon",
+    ".woff2": "font/woff2",
+    ".json": "application/json",
+    ".map": "application/json",
+    ".txt": "text/plain; charset=utf-8",
+}
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "forte-vision/0.1"
+    server_version = "forte-vision/0.2"
     protocol_version = "HTTP/1.1"
 
     def log_message(self, fmt: str, *args) -> None:
@@ -48,14 +66,26 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", "0")
         self.end_headers()
 
+    @staticmethod
+    def _normalize(path: str) -> tuple[str, bool]:
+        if path.startswith("/web/api/"):
+            return "/api/" + path[len("/web/api/"):], True
+        return path, False
+
+    def _maybe_key(self, web: bool) -> None:
+        if web and settings.web_keyless:
+            return
+        require_api_key(self.headers.get("X-API-Key"))
+
     def do_GET(self) -> None:
         try:
-            if self.path == "/health":
+            path, web = self._normalize(self.path)
+            if path == "/health":
                 self._send_json(200, {"status": "ok"})
                 return
-            if self.path.startswith("/api/v1/jobs/"):
-                require_api_key(self.headers.get("X-API-Key"))
-                job_id = self.path[len("/api/v1/jobs/"):].split("?")[0]
+            if path.startswith("/api/v1/jobs/"):
+                self._maybe_key(web)
+                job_id = path[len("/api/v1/jobs/"):].split("?")[0]
                 if not job_id:
                     raise ApiError(404, "Unknown job_id")
                 job = store.get(job_id)
@@ -63,15 +93,18 @@ class Handler(BaseHTTPRequestHandler):
                     raise ApiError(404, "Unknown job_id")
                 self._send_json(200, store.result(job))
                 return
+            if settings.static_dir is not None and self._serve_static(path):
+                return
             raise ApiError(404, "not found")
         except ApiError as e:
             self._send_json(e.status, {"detail": e.detail})
 
     def do_POST(self) -> None:
         try:
-            if self.path != "/api/v1/analyze":
+            path, web = self._normalize(self.path)
+            if path != "/api/v1/analyze":
                 raise ApiError(404, "not found")
-            require_api_key(self.headers.get("X-API-Key"))
+            self._maybe_key(web)
             length = int(self.headers.get("Content-Length", "0"))
             if length <= 0:
                 raise ApiError(400, "empty body")
@@ -87,6 +120,25 @@ class Handler(BaseHTTPRequestHandler):
             self._send_json(200, {"job_id": job.job_id, "status": "processing"})
         except ApiError as e:
             self._send_json(e.status, {"detail": e.detail})
+
+    def _serve_static(self, path: str) -> bool:
+        rel = "index.html" if path in ("/", "") else path.lstrip("/")
+        base = settings.static_dir.resolve()
+        target = (base / rel).resolve()
+        if not str(target).startswith(str(base)):
+            return False
+        if not target.is_file():
+            target = base / "index.html"
+            if not target.is_file():
+                return False
+        data = target.read_bytes()
+        self.send_response(200)
+        self.send_header("Content-Type", STATIC_TYPES.get(target.suffix, "application/octet-stream"))
+        self.send_header("Content-Length", str(len(data)))
+        self.send_header("Cache-Control", "no-store" if target.suffix == ".html" else "public, max-age=3600")
+        self.end_headers()
+        self.wfile.write(data)
+        return True
 
 
 def run(host: str = "0.0.0.0", port: int = 8000) -> None:
