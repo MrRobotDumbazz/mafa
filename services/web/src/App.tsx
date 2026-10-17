@@ -171,7 +171,7 @@ export default function App() {
           </div>
         </header>
 
-        <UploadZone onFile={handleFile} disabled={busy} />
+        <UploadZone onFile={handleFile} disabled={busy} maxMb={MAX_FILE_MB} />
 
         {(phase.kind === 'uploading' || phase.kind === 'polling') && (
           <div className="section">

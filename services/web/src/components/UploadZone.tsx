@@ -3,9 +3,10 @@ import { useRef, useState, DragEvent, ChangeEvent } from 'react'
 interface Props {
   onFile: (file: File) => void
   disabled?: boolean
+  maxMb?: number
 }
 
-export function UploadZone({ onFile, disabled }: Props) {
+export function UploadZone({ onFile, disabled, maxMb }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [dragging, setDragging] = useState(false)
 
@@ -50,7 +51,7 @@ export function UploadZone({ onFile, disabled }: Props) {
         </svg>
       </div>
       <p className="upload-zone__title">Перетащите видеофайл или нажмите для выбора</p>
-      <p className="upload-zone__hint">Формат .mov · до 50 МБ</p>
+      <p className="upload-zone__hint">Формат .mov · до {maxMb ?? 200} МБ</p>
     </div>
   )
 }
