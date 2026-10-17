@@ -34,6 +34,7 @@ class EngineConfig:
     default_window: float = 120.0
     leave_gap: float = 2.0
     max_evidence_frames: int = 3
+    enable_steps: bool = True
 
 
 def _cap(conf, dur, min_dur):
@@ -154,28 +155,29 @@ class Engine:
     def _scenario(self, opdef, prims, t0, t1, out):
         window = [p for p in prims if t0 <= p.t <= t1]
         last_t = t0
-        for step in opdef.steps:
-            match = None
-            for p in window:
-                if p.kind in step.accept and p.t >= last_t - 1e-9 and _who_ok(p, step.channel):
-                    match = p
-                    break
-            if match is not None:
-                last_t = match.t
-                continue
-            if step.label and not step.optional:
-                miss_t = min(t1, t0 + step.deadline)
-                out.append(
-                    Violation(
-                        label=step.label,
-                        rule=f"{opdef.op}:{step.sid}:missing",
-                        channel=step.channel,
-                        t_start=t0,
-                        t_end=miss_t,
-                        conf=0.7,
-                        note=f"required step not observed: {step.sid}",
+        if self.cfg.enable_steps:
+            for step in opdef.steps:
+                match = None
+                for p in window:
+                    if p.kind in step.accept and p.t >= last_t - 1e-9 and _who_ok(p, step.channel):
+                        match = p
+                        break
+                if match is not None:
+                    last_t = match.t
+                    continue
+                if step.label and not step.optional:
+                    miss_t = min(t1, t0 + step.deadline)
+                    out.append(
+                        Violation(
+                            label=step.label,
+                            rule=f"{opdef.op}:{step.sid}:missing",
+                            channel=step.channel,
+                            t_start=t0,
+                            t_end=miss_t,
+                            conf=0.7,
+                            note=f"required step not observed: {step.sid}",
+                        )
                     )
-                )
         for p in window:
             if p.kind == "LEAVE_STATION" and p.dur >= self.cfg.leave_gap:
                 out.append(

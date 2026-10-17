@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "contracts/ml_events.schema.json",
   "title": "ML pipeline events",
-  "description": "Контракт зоны ml (владелец P2): результат анализа видео. Skeleton сгенерирован при Genesis 2026-10-17; финализирует зона ml (bump версии при изменениях).",
+  "description": "Контракт зоны ml (владелец P2/W3). Версия 1 (2026-10-17, W3): добавлено необязательное поле summary (расшифровка вердикта и label'ов); events[] — без изменений, обратно совместимо с v0-скелетом Genesis.",
   "type": "object",
   "required": ["video_id", "events"],
   "properties": {
@@ -13,8 +13,7 @@
       "type": "string"
     },
     "events": {
-      "type": "array",
-      "items": {
+      "type": "array",      "items": {
         "type": "object",
         "required": ["type", "timecode_sec", "description", "evidence"],
         "properties": {
@@ -64,6 +63,37 @@
               "document": { "type": "string" },
               "clause": { "type": "string" },
               "url": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "description": "Необязательное человекочитаемое резюме (v1): вердикт, бэкенд, клипы и расшифровка label'ов",
+      "properties": {
+        "verdict": { "type": "string", "enum": ["violation", "no_violation"] },
+        "backend": { "type": "string" },
+        "clips": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": { "type": "string" },
+              "t0": { "type": "number" },
+              "t1": { "type": "number" }
+            }
+          }
+        },
+        "violations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": { "type": "string" },
+              "title_ru": { "type": "string" },
+              "timecode_sec": { "type": "number" },
+              "normative": { "type": "object" }
             }
           }
         }

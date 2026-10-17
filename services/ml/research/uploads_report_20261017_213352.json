@@ -1,0 +1,66 @@
+[
+ {
+  "video_id": "Х-26",
+  "path": "../../datasets/open/videos/Х-26.mov",
+  "verdict": "violation",
+  "backend": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx",
+  "clips": [
+   {
+    "category": "solo_count",
+    "t0": 0.3,
+    "t1": 13.7
+   }
+  ],
+  "events": [
+   {
+    "label": "CNT_UNATTENDED",
+    "title_ru": "Деньги оставлены без присмотра при пересчёте.",
+    "timecode_sec": 12.7,
+    "confidence": 0.75,
+    "normative": {
+     "document": "Правила осуществления кассовых операций и операций по инкассации (ПП НБРК от 29.11.2019 № 231)",
+     "clause": "п. 20 ч.2, п. 22",
+     "url": ""
+    }
+   },
+   {
+    "label": "ROOM_MONEY_ON_TABLE",
+    "title_ru": "Деньги оставлены на столе без присмотра.",
+    "timecode_sec": 14.7,
+    "confidence": 0.85,
+    "normative": {
+     "document": "Правила осуществления кассовых операций и операций по инкассации (ПП НБРК от 29.11.2019 № 231)",
+     "clause": "п. 20 ч.2",
+     "url": ""
+    }
+   },
+   {
+    "label": "CNT_UNATTENDED",
+    "title_ru": "Деньги оставлены без присмотра при пересчёте.",
+    "timecode_sec": 14.7,
+    "confidence": 0.95,
+    "normative": {
+     "document": "Правила осуществления кассовых операций и операций по инкассации (ПП НБРК от 29.11.2019 № 231)",
+     "clause": "п. 20 ч.2, п. 22",
+     "url": ""
+    }
+   }
+  ],
+  "sec": 29.5
+ },
+ {
+  "video_id": "Х-10",
+  "path": "../../datasets/open/videos/Х-10.mov",
+  "verdict": "no_violation",
+  "backend": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx",
+  "clips": [
+   {
+    "category": "solo_count",
+    "t0": 0.3,
+    "t1": 15.3
+   }
+  ],
+  "events": [],
+  "sec": 16.2
+ }
+]

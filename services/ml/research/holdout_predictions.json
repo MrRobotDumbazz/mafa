@@ -1,0 +1,416 @@
+{
+ "X-10": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 2.7
+ },
+ "X-11": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 3.4
+   }
+  ],
+  "sec": 3.9
+ },
+ "X-12": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 30.4
+   }
+  ],
+  "sec": 5.2
+ },
+ "X-15": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 14.2
+   }
+  ],
+  "sec": 2.5
+ },
+ "X-17": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 1.9
+ },
+ "X-18": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 4.8
+   }
+  ],
+  "sec": 2.8
+ },
+ "X-20": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 3.4
+   }
+  ],
+  "sec": 1.5
+ },
+ "X-22": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 2.5
+ },
+ "X-23": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 2.2
+ },
+ "X-25": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 18.6
+   }
+  ],
+  "sec": 3.8
+ },
+ "X-26": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 4.0
+   },
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 18.4
+   }
+  ],
+  "sec": 2.4
+ },
+ "X-28": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 3.0
+   }
+  ],
+  "sec": 2.1
+ },
+ "X-29": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 2.2
+ },
+ "X-3": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 10.2
+   }
+  ],
+  "sec": 2.5
+ },
+ "X-31": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 7.6
+   }
+  ],
+  "sec": 2.9
+ },
+ "X-33": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 5.6
+   }
+  ],
+  "sec": 1.8
+ },
+ "X-35": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 6.4
+   }
+  ],
+  "sec": 6.8
+ },
+ "X-38": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 46.0
+   }
+  ],
+  "sec": 7.1
+ },
+ "X-39": {
+  "verdict": "error",
+  "events": [],
+  "error": "min() iterable argument is empty",
+  "sec": 9.5
+ },
+ "X-4": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 4.2
+   },
+   {
+    "type": "RECV_LEFT_STATION",
+    "t": 6.0
+   },
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 55.0
+   },
+   {
+    "type": "RECV_LEFT_STATION",
+    "t": 55.0
+   }
+  ],
+  "sec": 8.8
+ },
+ "X-40": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 14.2
+   }
+  ],
+  "sec": 3.1
+ },
+ "X-43": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 7.0
+   }
+  ],
+  "sec": 2.8
+ },
+ "X-44": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 8.8
+   }
+  ],
+  "sec": 2.5
+ },
+ "X-45": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 4.0
+ },
+ "X-46": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 2.4
+ },
+ "X-47": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 4.2
+   },
+   {
+    "type": "RECV_LEFT_STATION",
+    "t": 6.0
+   },
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 55.0
+   },
+   {
+    "type": "RECV_LEFT_STATION",
+    "t": 55.0
+   }
+  ],
+  "sec": 8.7
+ },
+ "X-48": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 28.2
+   },
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 61.2
+   }
+  ],
+  "sec": 8.4
+ },
+ "X-5": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 28.2
+   },
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 61.2
+   }
+  ],
+  "sec": 8.5
+ },
+ "X-8": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 26.6
+   }
+  ],
+  "sec": 4.5
+ },
+ "X-1": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 20.6
+   }
+  ],
+  "sec": 3.2
+ },
+ "X-13": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 58.2
+   },
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 58.2
+   },
+   {
+    "type": "RECV_LEFT_STATION",
+    "t": 58.2
+   }
+  ],
+  "sec": 7.9
+ },
+ "X-14": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 80.0
+   }
+  ],
+  "sec": 16.8
+ },
+ "X-16": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 14.2
+   }
+  ],
+  "sec": 2.8
+ },
+ "X-19": {
+  "verdict": "error",
+  "events": [],
+  "error": "min() iterable argument is empty",
+  "sec": 6.7
+ },
+ "X-2": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 6.0
+   }
+  ],
+  "sec": 2.1
+ },
+ "X-21": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 2.4
+ },
+ "X-24": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 1.8
+ },
+ "X-27": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "RECV_LEFT_STATION",
+    "t": 0.2
+   },
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 14.6
+   }
+  ],
+  "sec": 3.2
+ },
+ "X-30": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "RECV_LEFT_STATION",
+    "t": 2.2
+   },
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 8.2
+   }
+  ],
+  "sec": 2.3
+ },
+ "X-32": {
+  "verdict": "clean",
+  "events": [],
+  "sec": 2.6
+ },
+ "X-34": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 10.4
+   }
+  ],
+  "sec": 2.2
+ },
+ "X-37": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_THIRD_PARTY",
+    "t": 9.4
+   }
+  ],
+  "sec": 2.0
+ }
+}

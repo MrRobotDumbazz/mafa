@@ -23,9 +23,29 @@
 - Selfcheck: 5/5 PASS (чистые приём+выдача → no_violation; грязные сценарии → точные наборы label). Запуск: `python3 model/selfcheck.py` из `services/ml`.
 - Движок — чистый stdlib (среда без numpy/pandas/openpyxl — см. ниже); OpenCV/NumPy/Pandas подключаются на слое восприятия (производят примитивы).
 
-## Блокеры / запросы человеку (P2)
+## 2026-10-17 (ночь) — слой восприятия v0 + holdout-метрики (Этап 2, п.3–4)
 
-0. **Пакеты/веса для слоя восприятия** (в среде нет pip; принести файлами): numpy, opencv-python, ultralytics-аналоги (YOLOX/RT-DETR) + веса, ByteTrack/MediaPipe — точный перечень сформирую на Этапе 2 п.3; сейчас движок проверяем синтетикой.
+- **Окружение:** pip в системе заблокирован PEP 668; venv + pip качается нестабильно (TLS-сбои к pypi, курлом качается — прервано P2 по времени). Решение: **v0 целиком на stdlib + ffmpeg** (ffmpeg → PGM 108×192@5fps → чистый Python: дилатированная diff-маска, blob-детекция, nearest-neighbor трекинг, EMA-фон + персистентные ячейки = стат-объекты). `.venv/` оставлен для доустановки позже; интерфейсы модулей менять не придётся.
+- **Файлы:** `pipeline/{frames,motion,states,zones,featurize,emit,catalog,labels}.py`, `run.py` (стык backend: argv[1]=.mov → stdout JSON по ml_events.schema.json, кадры-доказательства JPEG в `run_evidence/`), `holdout.py` (стратифицированный split seed 42: tune 29 / holdout 13), `eda.py` → `research/eda_videos.md`.
+- **Holdout v0.1:** tune R=0.80/P=0.57; holdout R=0.71/P=0.56, FPR=0.67; таймкод 4/7. Работают: деньги-на-столе/не-убраны (X-26, X-4, X-13, X-47). Перенакален ROOM_THIRD_PARTY (главный FP). Недетектируемо v0: свет (авто-экспозиция), жесты, сейф/дверь/ключ — детали в `research/holdout_report.md`.
+- run_evidence/ — кадры-доказательства, в git не стадирую; прошу координатора (W1) добавить `services/ml/run_evidence/` в .gitignore (общий файл, I5).
+
+## 2026-10-17 (поздняя ночь) — v0.2: детекция/трекинг/клипы + интеграция с backend
+
+- **Стек установлен** в `services/ml/.venv`: numpy 2.5.4, opencv-python-headless 5.0 (wheel-файлами через curl — pip-TLS в среде глючит), pandas 3.0.6, openpyxl 3.1.5, onnxruntime 1.31.0. Веса: `weights/yolov5n_v7.0.onnx` (3.98 МБ, fp16, COCO). YOLOX-ассеты GitHub оказались битыми (obj-ветка = 0) — заменены на YOLOv5n.
+- **Слой восприятия v1** (`pipeline/vision.py`): ffmpeg rawvideo 270×480@3fps → YOLOv5n (onnxruntime) → трекер ByteLite (IoU+центроида) → зоны (кассир/клиенты) → стат-объекты (EMA-фон) → примитивы → движок → JSON. Ключевые объекты COCO: person, сумки/рюкзаки (инкассация), телефон/бутылка/кружка/книга (лишние вещи → ROOM_PERSONAL_ITEMS). Дверь/сейф/счётчик/купюры/пломбы/удостоверение в COCO нет — нужны кастомные веса (запрос ниже).
+- **Классификация клипов** (`pipeline/clips.py`, rule-based): service / solo_count / bag_incass / item_in_staff + взаимодействия (поза-прокси: близость треков; настоящий скелет —.MediaPipe нет для py3.14, запрос ниже).
+- **run.py v1**: валидация .mov (ffprobe), `--backend auto|dnn|classic`, авто-переисполнение через .venv, `summary` (вердикт + расшифровка label + норматив). Схема `ml_events.schema.json` → v1 (добавлен optional `summary`, обратно совместимо).
+- **batch_report.py** — отчёт по загруженным видео: вердикт, label→расшифровка→пункт НПА, клипы (research/uploads_report_*.md/.json).
+- **Интеграция с backend: `SELFCHECK PASSED`** (`FORTE_PIPELINE_CMD="python3 ../ml/run.py" ./selfcheck.sh`): полный цикл загрузка → job → вердикт → кадры.
+- Holdout v0.2 — считается фоном, отчёт: `research/holdout_report_v1.md` (+ предсказания `holdout_predictions_v1.json`).
+
+## Блокеры / запросы человеку (P2) — обновлено
+
+0. ~~Веса детектора людей~~ — закрыто (YOLOv5n ONNX). **Новое для v2:** (а) кастомные веса ключевых объектов (дверь/сейф/счётчик/купюры/ключи/удостоверение) — нужны обучающие кадры или готовая модель; (б) MediaPipe-pose не имеет wheel для py3.14 — поза сейчас box-прокси (близость/направление), для жестов пересчёта/документа нужен настоящий скелет: варианты — env с py3.12 или порт MediaPipe; (в) VideoMAE-классификатор клипов — сейчас rule-based.
+1. adilet-URL: подтвердить достаточность реквизитов или принести ссылками.
+2. Правила № 14 и № 230 — тексты всё ещё нужны (ROOM_DOOR_OPEN / ROOM_LOW_LIGHT / EXCH_NO_AUTH_CHECK без verified).
+3. Координатору (W1): в .gitignore добавить `services/ml/run_evidence/` и `services/ml/weights/` (общий файл, I5).
 
 1. **adilet URL не верифицированы** (новый adilet требует JS; по указанию P2 сайт больше не используем). Акты идентифицированы по реквизитам шапок PDF. Для критерия 4: подтвердить, что реквизитов (номер/дата/рег.№) достаточно, ИЛИ принести канонические ссылки файлом.
 2. **Нужны тексты** (для verified по ROOM_DOOR_OPEN, ROOM_LOW_LIGHT, EXCH_NO_AUTH_CHECK): Правила организации охраны и устройства помещений (ПП НБРК от 24.02.2020 № 14); Правила определения платежности банкнот и монет (ПП НБРК от 29.11.2017 № 230).
