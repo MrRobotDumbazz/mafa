@@ -1,0 +1,57 @@
+# Гипотезы нарушений — research-черновик для violation_catalog.yaml (W3, 2026-10-17).
+# НЕ контракт. В контракт попадут только пункты с подтверждённой наблюдаемостью на видео.
+# verified:
+#   act      — норма подтверждена по тексту действующего НПА (PDF предоставлен P2 в services/ml/)
+#   method   — норма из акта, утратившего силу (№ 58): методологический ориентир, в ответы не включать
+#   none     — нормативная база не верифицирована (гипотеза по разметке)
+# url пуст = ссылка adilet.zan.kz не перепроверена W3 (E8; искать по реквизитам документа).
+version: 0-draft
+sources:
+  A1: "ПП НБРК от 29.11.2019 № 231 «Правила осуществления кассовых операций и операций по инкассации…» (действует)"
+  A2: "ПП НБРК от 28.09.2020 № 120 «Правила ведения кассовых операций с физическими и юридическими лицами в НБРК» (действует)"
+  A3: "ПП НБРК от 03.03.2001 № 58 (утратило силу с 01.01.2020 — методологический ориентир)"
+types:
+  # --- Приём ---
+  - {id: RECV_NO_ID, operation: receive, title: "Приём наличных без идентификации клиента по документу", visible_hint: "клиент/кассир не предъявляет документ в начале операции", source: {act: A1, clause: "п. 19-1), п. 7"}, verified: act, observability: medium}
+  - {id: RECV_NO_RECOUNT, operation: receive, title: "Приём без полистного пересчёта в присутствии клиента", visible_hint: "нет движений пересчёта/счётной техники после передачи денег кассиру", source: {act: A1, clause: "п. 19-2), п. 20 ч.1"}, verified: act, observability: medium}
+  - {id: RECV_LEFT_STATION, operation: receive, title: "Кассир покинул рабочее место до окончания обслуживания", visible_hint: "уход сотрудника от кассы при клиенте", source: {act: A1, clause: "п. 22"}, verified: act, observability: high}
+  - {id: RECV_MIXED_FUNDS, operation: receive, title: "Совмещение денег разных клиентов/документов", visible_hint: "деньги нового клиента смешиваются с лежащими на столе", source: {act: A1, clause: "п. 21", method: "A3 п. 16"}, verified: act, observability: medium}
+  - {id: RECV_FUNDS_ACCESSIBLE, operation: receive, title: "Ранее принятые деньги доступны клиенту (не в закрывающемся устройстве)", visible_hint: "купюры остаются на столе/в открытых ящиках в зоне клиента", source: {act: A1, clause: "п. 20 ч.2"}, verified: act, observability: high}
+  - {id: RECV_NO_AUTH_CHECK, operation: receive, title: "Приём без проверки подлинности/платёжности", visible_hint: "нет подачи денег в детектор/счётчик", source: {act: A1, clause: "п. 9, п. 57"}, verified: act, observability: medium}
+  # --- Выдача ---
+  - {id: ISSUE_NO_ID, operation: issue, title: "Выдача без идентификации клиента", visible_hint: "выдача денег без предъявления документа", source: {act: A1, clause: "п. 31-1)"}, verified: act, observability: medium}
+  - {id: ISSUE_NO_RECOUNT, operation: issue, title: "Выдача без пересчёта суммы в присутствии клиента", visible_hint: "выдача/сдача без пересчёта (в т.ч. на аппарате)", source: {act: A1, clause: "п. 31-4)"}, verified: act, observability: medium}
+  - {id: ISSUE_NO_CLIENT_RECOUNT, operation: issue, title: "Клиент не пересчитал деньги у кассы", visible_hint: "клиент сразу убирает/уходит с деньгами", source: {act: A1, clause: "п. 35"}, verified: act, observability: low-medium}
+  - {id: ISSUE_LOOSE_NOTES, operation: issue, title: "Выдача без упаковки банка/из повреждённых корешков без пересчёта", visible_hint: "выдача россыпью без пачек", source: {act: A1, clause: "п. 32, п. 33"}, verified: act, observability: medium}
+  - {id: ISSUE_NO_RECEIPT, operation: issue, title: "Не выдан подтверждающий документ", visible_hint: "нет передачи документа клиенту в конце операции", source: {act: A1, clause: "п. 31-6)"}, verified: act, observability: low}
+  # --- Обмен/размен ---
+  - {id: EXCH_NO_AUTH_CHECK, operation: exchange, title: "Обмен/размен без проверки платёжности и подлинности", visible_hint: "обмен денег без детектора/счётчика", source: {act: A1, clause: "п. 36, п. 9"}, verified: act, observability: medium}
+  - {id: EXCH_ORDER, operation: exchange, title: "Обмен номиналов до выдачи подготовленных денег", visible_hint: "последовательность операций нарушена", source: {act: A1, clause: "п. 34"}, verified: act, observability: low}
+  - {id: EXCH_WORN_AS_GOOD, operation: exchange, title: "Ветхие/дефектные обменяны без разделения и оформления", visible_hint: "нет сортировки пачек, смешение ветхих с годными", source: {act: A1, clause: "п. 43, п. 45", ref: "A2 п. 77-78"}, verified: act, observability: medium}
+  # --- Кассация (ветхие/сомнительные/поддельные) ---
+  - {id: CASH_SUSP_NO_ACT, operation: cashout, title: "Сомнительные банкноты не оформлены актом в присутствии клиента и зав. кассой", visible_hint: "нет вызова второго лица/оформления документа", source: {act: A1, clause: "п. 59", method: "A3 п. 19"}, verified: act, observability: low}
+  - {id: CASH_MIXED_WORN, operation: cashout, title: "Годные деньги смешаны с ветхими/изъятыми", visible_hint: "слияние двух пачек/стопок денег", source: {act: A1, clause: "п. 43, п. 45"}, verified: act, observability: high}
+  - {id: CASH_COUNTERFEIT_HANDLING, operation: cashout, title: "Банкнота с признаками подделки возвращена клиенту", visible_hint: "возврат банкноты после осмотра", source: {act: A1, clause: "п. 60, п. 61"}, verified: act, observability: low}
+  - {id: CASH_NO_EXPERTISE_DISPATCH, operation: cashout, title: "Сомнительные не направлены на экспертизу в 5 рабочих дней", visible_hint: "ненаблюдаемо на видео", source: {act: A1, clause: "п. 59 ч.2"}, verified: act, observability: none}
+  # --- Пересчёт/сортировка ---
+  - {id: CNT_NO_CONTROLLER, operation: count, title: "Пересчёт/сортировка без контролирующего работника", visible_hint: "пересчёт в одиночку вне приёма/выдачи клиенту", source: {act: A1, clause: "п. 42"}, verified: act, observability: high}
+  - {id: CNT_UNATTENDED, operation: count, title: "Деньги оставлены без присмотра при пересчёте", visible_hint: "кассир отошёл, деньги на столе/аппарате", source: {act: A1, clause: "п. 20 ч.2, п. 22"}, verified: act, observability: high}
+  - {id: CNT_STATION_LEFT, operation: count, title: "Отлучка в процессе пересчёта бригадой", visible_hint: "уход от места пересчёта до завершения", source: {act: A3, clause: "п. 60"}, verified: method, observability: high}
+  - {id: CNT_NO_EQUIPMENT, operation: count, title: "Пересчёт без оборудования проверки ≥2 признаков", visible_hint: "ручной пересчёт крупных объёмов", source: {act: A1, clause: "п. 41"}, verified: act, observability: medium}
+  - {id: CNT_DISCREPANCY_NO_ACT, operation: count, title: "Недостача/излишек не оформлены актом", visible_hint: "ненаблюдаемо на видео", source: {act: A1, clause: "п. 44", method: "A3 п. 63"}, verified: act, observability: none}
+  # --- Кассовый узел/хранение ---
+  - {id: ROOM_SAFE_OPEN, operation: storage, title: "Сейф/шкаф не закрыт или уход без проверки закрытия", visible_hint: "открытая дверца сейфа; уход без закрывающего жеста", source: {act: A1, clause: "п. 20 ч.2, п. 76-78"}, verified: act, observability: high}
+  - {id: ROOM_KEY_ABANDONED, operation: storage, title: "Ключ оставлен без присмотра/не у ответственного лица", visible_hint: "ключ лежит на столе/в замке, сотрудник ушёл", source: {act: A1, clause: "п. 76"}, verified: act, observability: medium}
+  - {id: ROOM_DOOR_OPEN, operation: storage, title: "Дверь кассового узла/кабинета не закрыта", visible_hint: "дверь открыта при уходе/посторонних", source: {act: A1, clause: "п. 5 (отсылка к Правилам № 14 от 24.02.2020)"}, verified: none, observability: high}
+  - {id: ROOM_PERSONAL_ITEMS, operation: storage, title: "Личные вещи в кассовом узле/на рабочем месте", visible_hint: "сумки/еда/телефон на столе кассира", source: {act: A1, clause: "п. 12"}, verified: act, observability: high}
+  - {id: ROOM_THIRD_PARTY, operation: storage, title: "Постороннее лицо в кассовом узле", visible_hint: "второй человек в служебной зоне при операциях", source: {act: A1, clause: "п. 75 (кладовая); Правила № 14 — не предоставлены"}, verified: none, observability: high}
+  - {id: ROOM_LOW_LIGHT, operation: storage, title: "Операции при выключенном освещении", visible_hint: "затемнение сцены при продолжении операций", source: {act: unknown, clause: "Правила № 14 — не предоставлены"}, verified: none, observability: medium}
+  - {id: ROOM_MONEY_ON_TABLE, operation: storage, title: "Деньги оставлены на столе без присмотра", visible_hint: "деньги на столе, кассира нет/клиент ушёл", source: {act: A1, clause: "п. 20 ч.2", method: "A3 п. 16, п. 60"}, verified: act, observability: high}
+  # --- Инкассация ---
+  - {id: INCASS_BAG_NO_CHECK, operation: incass, title: "Приём сумки без проверки целостности и пломб", visible_hint: "сумка принята без осмотра", source: {act: A1, clause: "п. 24"}, verified: act, observability: medium}
+  - {id: INCASS_OPEN_SOLO, operation: incass, title: "Вскрытие сумки без работника инкассации", visible_hint: "вскрытие в одиночку", source: {act: A1, clause: "п. 25"}, verified: act, observability: medium}
+  - {id: INCASS_EXCHANGE_UNVERIFIED, operation: incass, title: "Приём/сдача ценностей бригаде без оформления", visible_hint: "передача сумок без документов", source: {act: A1, clause: "п. 38-39, п. 106-113"}, verified: act, observability: low-medium}
+  # --- Аномалии ---
+  - {id: ANOM_CLIENT_LEFT_EMPTY, operation: any, title: "Клиент ушёл, ничего не получив", visible_hint: "клиент без денег/документа покидает кассу", source: {act: unknown, clause: "прямой пункт не найден"}, verified: none, observability: high}
+  - {id: ANOM_UNKNOWN, operation: any, title: "Немаркированное отклонение", visible_hint: "прочие отклонения от нормы (anomaly-слой)", source: {act: unknown, clause: "-"}, verified: none, observability: any}
+# Маппинг open_labels.xlsx → id: см. research/npa_analysis.md §4.
