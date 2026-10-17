@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/ml_events.schema.json",
+  "title": "ML pipeline events",
+  "description": "Контракт зоны ml (владелец P2): результат анализа видео. Skeleton сгенерирован при Genesis 2026-10-17; финализирует зона ml (bump версии при изменениях).",
+  "type": "object",
+  "required": ["video_id", "events"],
+  "properties": {
+    "video_id": {
+      "type": "string"
+    },
+    "pipeline_version": {
+      "type": "string"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "timecode_sec", "description", "evidence"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "id типа из contracts/violation_catalog.yaml"
+          },
+          "timecode_sec": {
+            "type": "number",
+            "minimum": 0
+          },
+          "timecode_end_sec": {
+            "type": "number",
+            "minimum": 0
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "description": {
+            "type": "string",
+            "description": "Что видно и почему это может указывать на нарушение"
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "required": ["timestamp_sec"],
+              "properties": {
+                "timestamp_sec": {
+                  "type": "number"
+                },
+                "frame": {
+                  "type": "string",
+                  "description": "JPEG: путь к файлу или base64 — формат фиксирует зона ml"
+                }
+              }
+            }
+          },
+          "normative": {
+            "type": "object",
+            "description": "Заполняется из violation_catalog.yaml по id типа",
+            "properties": {
+              "document": { "type": "string" },
+              "clause": { "type": "string" },
+              "url": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

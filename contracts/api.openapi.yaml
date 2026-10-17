@@ -1,0 +1,150 @@
+openapi: 3.1.0
+info:
+  title: forte-vision Jury & UI API
+  version: 0.1.0
+  description: >
+    Владелец контракта: зона backend (W1). Основано на разделе 10 ТЗ Datathon 26
+    (кейс ForteBank). Ломающие изменения — bump версии + запись в PLAN.md.
+servers:
+  - url: https://TBD.example.kz
+    description: заменить адресом деплоя
+security:
+  - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas:
+    JobCreated:
+      type: object
+      required: [job_id, status]
+      properties:
+        job_id:
+          type: string
+          examples: ["3f2a9c1e"]
+        status:
+          type: string
+          enum: [processing]
+    EvidenceFrame:
+      type: object
+      required: [timestamp_sec, image_base64]
+      properties:
+        timestamp_sec:
+          type: number
+          description: Секунды от начала видео.
+        image_base64:
+          type: string
+          description: Кадр JPEG, закодированный в base64.
+    Violation:
+      type: object
+      required: [type, timecode_sec, description, evidence_frames]
+      properties:
+        type:
+          type: string
+          description: Тип нарушения из contracts/violation_catalog.yaml.
+        timecode_sec:
+          type: number
+          description: Таймкод события в секундах от начала видео.
+        description:
+          type: string
+          description: Что видно на видео и почему это может указывать на нарушение.
+        evidence_frames:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items:
+            $ref: "#/components/schemas/EvidenceFrame"
+        normative:
+          type: object
+          description: Правило и нормативный источник (раздел 4 п.7 ТЗ).
+          properties:
+            document:
+              type: string
+            clause:
+              type: string
+            url:
+              type: string
+    JobResult:
+      type: object
+      required: [job_id, status, verdict, violations]
+      properties:
+        job_id:
+          type: string
+        status:
+          type: string
+          enum: [processing, done, failed]
+        verdict:
+          type: string
+          enum: [no_violation, violation]
+          description: Заполняется при status=done.
+        violations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Violation"
+        error:
+          type: string
+          description: Заполняется при status=failed.
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+paths:
+  /api/v1/analyze:
+    post:
+      summary: Загрузить видео на анализ (.mov, ~29 МБ)
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Задание принято.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobCreated"
+        "401":
+          description: Отсутствует или неверен X-API-Key.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/v1/jobs/{job_id}:
+    get:
+      summary: Статус обработки и результат
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: processing | done | failed; при done — verdict и violations.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResult"
+        "404":
+          description: Неизвестный job_id.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /health:
+    get:
+      summary: Проверка живости сервиса (без ключа).
+      security: []
+      responses:
+        "200":
+          description: ok

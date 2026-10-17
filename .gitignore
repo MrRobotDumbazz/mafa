@@ -1,0 +1,12 @@
+# Датасет: видео не версионируем (41 × ~29 МБ); разметка — трекается
+datasets/open/videos/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Секреты
+.env
+*.key
