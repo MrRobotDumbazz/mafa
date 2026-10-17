@@ -67,9 +67,9 @@ export function ViolationCard({ index, violation }: Props) {
             <p className="violation-card__description">{violation.description}</p>
           </section>
 
-          {violation.normative && (
-            <section className="violation-card__section">
-              <h4 className="violation-card__section-title">Нормативный источник</h4>
+          <section className="violation-card__section">
+            <h4 className="violation-card__section-title">Нормативный источник</h4>
+            {violation.normative?.document ? (
               <div className="violation-card__normative">
                 <span className="violation-card__normative-doc">{violation.normative.document}</span>
                 {violation.normative.clause && (
@@ -86,8 +86,12 @@ export function ViolationCard({ index, violation }: Props) {
                   </a>
                 )}
               </div>
-            </section>
-          )}
+            ) : (
+              <p className="violation-card__normative-absent">
+                Нормативный источник не указан — ожидается заполнение каталога нарушений
+              </p>
+            )}
+          </section>
         </div>
       </div>
     </article>

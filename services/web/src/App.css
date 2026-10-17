@@ -46,6 +46,26 @@ body {
   margin-bottom: 32px;
 }
 
+.header__right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header__key-btn {
+  background: none;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: var(--gray-500);
+  transition: border-color .15s, background .15s;
+}
+.header__key-btn:hover { border-color: var(--gray-400); background: var(--gray-100); }
+
 .header__logo {
   width: 40px; height: 40px;
   background: var(--blue);
@@ -68,7 +88,6 @@ body {
 }
 
 .header__badge {
-  margin-left: auto;
   font-size: 11px;
   font-weight: 600;
   color: var(--blue);
@@ -147,6 +166,42 @@ body {
 .status-card__label { font-size: 14px; font-weight: 600; color: var(--gray-900); }
 .status-card__filename { font-size: 13px; color: var(--gray-500); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px; }
 .status-card__timer { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--blue); letter-spacing: -0.5px; }
+
+/* ── Upload progress bar ─────────────────── */
+.upload-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.upload-progress__bar {
+  flex: 1;
+  height: 4px;
+  background: var(--blue);
+  border-radius: 2px;
+  transition: width .2s ease;
+  position: relative;
+}
+
+.upload-progress__bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gray-200);
+  border-radius: 2px;
+  z-index: -1;
+  width: 100%;
+}
+
+.upload-progress__pct {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+  min-width: 32px;
+  text-align: right;
+}
 
 /* ── Verdict banner ─────────────────────── */
 .verdict-banner {
@@ -357,6 +412,12 @@ body {
 
 .violation-card__normative-link:hover { text-decoration: underline; }
 
+.violation-card__normative-absent {
+  font-size: 13px;
+  color: var(--gray-400);
+  font-style: italic;
+}
+
 /* ── Error ───────────────────────────────── */
 .error-card {
   background: var(--red-light);
@@ -399,6 +460,85 @@ body {
 
 /* ── Sections spacing ────────────────────── */
 .section { margin-top: 24px; }
+
+/* ── Key dialog ──────────────────────────── */
+.key-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.key-dialog {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.key-dialog__icon { margin-bottom: 4px; }
+
+.key-dialog__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gray-900);
+  text-align: center;
+}
+
+.key-dialog__sub {
+  font-size: 13px;
+  color: var(--gray-500);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.key-dialog__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.key-dialog__input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--gray-900);
+  outline: none;
+  transition: border-color .15s;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+}
+.key-dialog__input:focus { border-color: var(--blue); }
+
+.key-dialog__btn {
+  width: 100%;
+  padding: 11px;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+.key-dialog__btn:hover:not(:disabled) { background: var(--blue-dark); }
+.key-dialog__btn:disabled { opacity: .45; cursor: not-allowed; }
 
 /* ── Demo banner ─────────────────────────── */
 .demo-banner {

@@ -3,6 +3,14 @@ interface Props {
   count: number
 }
 
+function pluralEvents(n: number): string {
+  const mod10 = n % 10
+  const mod100 = n % 100
+  if (mod10 === 1 && mod100 !== 11) return `${n} событие`
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return `${n} события`
+  return `${n} событий`
+}
+
 export function VerdictBanner({ verdict, count }: Props) {
   if (verdict === 'no_violation') {
     return (
@@ -33,7 +41,7 @@ export function VerdictBanner({ verdict, count }: Props) {
       <div>
         <p className="verdict-banner__title">Обнаружены признаки возможных нарушений</p>
         <p className="verdict-banner__sub">
-          {count === 1 ? '1 событие требует проверки' : `${count} события требуют проверки`}
+          {pluralEvents(count)} требует{count === 1 ? '' : 'ют'} проверки
           {' · '}Результат является подсказкой для проверки человеком
         </p>
       </div>
