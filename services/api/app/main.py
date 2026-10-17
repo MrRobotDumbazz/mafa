@@ -7,6 +7,7 @@ from pathlib import Path
 from .auth import require_api_key
 from .config import get_settings
 from .errors import ApiError
+from .extract import probe_duration_sec
 from .jobs import JobStore
 from .mlpipe.external import ExternalPipeline
 from .mlpipe.mock import MockPipeline
@@ -116,6 +117,11 @@ class Handler(BaseHTTPRequestHandler):
                 raise ApiError(400, "Only .mov files are accepted")
             dest = settings.storage_dir / f"{uuid.uuid4().hex}_{Path(filename).name}"
             dest.write_bytes(content)
+            try:
+                probe_duration_sec(dest)
+            except Exception:
+                dest.unlink(missing_ok=True)
+                raise ApiError(400, "File is not a readable video")
             job = store.create(dest)
             self._send_json(200, {"job_id": job.job_id, "status": "processing"})
         except ApiError as e:
