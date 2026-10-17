@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - FORTE_API_KEY=${FORTE_API_KEY:?set FORTE_API_KEY}
+      - FORTE_PIPELINE_CMD=${FORTE_PIPELINE_CMD:-}
+    volumes:
+      - storage:/srv/app/.storage
+    restart: unless-stopped
+
+volumes:
+  storage:

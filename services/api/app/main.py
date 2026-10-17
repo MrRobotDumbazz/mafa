@@ -8,11 +8,20 @@ from .auth import require_api_key
 from .config import get_settings
 from .errors import ApiError
 from .jobs import JobStore
+from .mlpipe.external import ExternalPipeline
 from .mlpipe.mock import MockPipeline
 from .multipart import parse_multipart
 
 settings = get_settings()
-store = JobStore(MockPipeline(), timeout_sec=settings.job_timeout_sec)
+
+
+def _build_pipeline():
+    if settings.pipeline_cmd:
+        return ExternalPipeline(settings.pipeline_cmd)
+    return MockPipeline()
+
+
+store = JobStore(_build_pipeline(), timeout_sec=settings.job_timeout_sec)
 
 
 class Handler(BaseHTTPRequestHandler):

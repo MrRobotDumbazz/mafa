@@ -12,6 +12,7 @@ class Settings:
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         self.max_upload_bytes = int(os.getenv("FORTE_MAX_UPLOAD_MB", "200")) * 1024 * 1024
         self.job_timeout_sec = float(os.getenv("FORTE_JOB_TIMEOUT_SEC", "300"))
+        self.pipeline_cmd = os.getenv("FORTE_PIPELINE_CMD", "")
 
 
 @lru_cache
