@@ -10,6 +10,10 @@ venv/
 # Runtime-хранение backend (загрузки, кадры)
 .storage/
 
+# Артефакты зоны ml (по запросу W3, I5): кадры-доказательства прогона и веса моделей
+services/ml/run_evidence/
+services/ml/weights/
+
 # Секреты
 .env
 *.key
