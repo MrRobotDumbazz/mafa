@@ -19,12 +19,12 @@ export function ViolationCard({ index, violation }: Props) {
   return (
     <article className="violation-card">
       <header className="violation-card__header">
-        <span className="violation-card__num">#{index + 1}</span>
+        <span className="violation-card__num">{index + 1}</span>
         <h3 className="violation-card__type">{violation.type}</h3>
         <span className="violation-card__timecode">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <circle cx="7" cy="7" r="6" stroke="#64748b" strokeWidth="1.5" />
-            <path d="M7 4v3.5l2 2" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round" />
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <circle cx="6.5" cy="6.5" r="5.5" stroke="#6C6C6C" strokeWidth="1.4" />
+            <path d="M6.5 3.5v3.2l1.8 1.8" stroke="#6C6C6C" strokeWidth="1.4" strokeLinecap="round" />
           </svg>
           {fmtTimecode(violation.timecode_sec)}
         </span>

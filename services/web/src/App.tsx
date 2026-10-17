@@ -142,10 +142,10 @@ export default function App() {
       <div className="app">
         <header className="header">
           <div className="header__logo" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M4 8h16M4 12h10M4 16h7" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-              <circle cx="18" cy="15" r="4" stroke="#fff" strokeWidth="2" />
-              <path d="M21 18l2 2" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <circle cx="13" cy="11" r="5.5" stroke="white" strokeWidth="2" />
+              <circle cx="13" cy="11" r="2" fill="white" />
+              <path d="M5 22 Q13 16 21 22" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" />
             </svg>
           </div>
           <div>
@@ -162,9 +162,9 @@ export default function App() {
                 aria-label="Изменить API-ключ"
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <circle cx="6" cy="6" r="4" stroke="#64748b" strokeWidth="1.5" />
-                  <path d="M9 9l4 4" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round" />
-                  <path d="M6 4v4M4 6h4" stroke="#64748b" strokeWidth="1.2" strokeLinecap="round" />
+                  <circle cx="6.5" cy="6.5" r="4" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M10 10l3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M6.5 4.5v4M4.5 6.5h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
                 </svg>
               </button>
             )}

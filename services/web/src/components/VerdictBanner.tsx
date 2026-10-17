@@ -33,9 +33,9 @@ export function VerdictBanner({ verdict, count }: Props) {
     <div className="verdict-banner verdict-banner--violation" role="status" aria-live="polite">
       <span className="verdict-banner__icon" aria-hidden="true">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-          <path d="M14 2L26 24H2L14 2z" fill="#fef2f2" stroke="#de3730" strokeWidth="2" strokeLinejoin="round" />
-          <path d="M14 11v5" stroke="#de3730" strokeWidth="2.5" strokeLinecap="round" />
-          <circle cx="14" cy="20" r="1.5" fill="#de3730" />
+          <path d="M14 2L26 24H2L14 2z" fill="rgba(255,255,255,.18)" stroke="rgba(255,255,255,.9)" strokeWidth="2" strokeLinejoin="round" />
+          <path d="M14 11v5" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+          <circle cx="14" cy="20" r="1.5" fill="white" />
         </svg>
       </span>
       <div>

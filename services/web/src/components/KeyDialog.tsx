@@ -21,10 +21,11 @@ export function KeyDialog({ onSave }: Props) {
     <div className="key-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="key-dialog-title">
       <div className="key-dialog">
         <div className="key-dialog__icon" aria-hidden="true">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <rect width="32" height="32" rx="8" fill="#EBF4FF" />
-            <path d="M20 13a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM12.27 17A7 7 0 0 0 10 23h12a7 7 0 0 0-2.27-6" stroke="#0052CC" strokeWidth="1.8" strokeLinecap="round" />
-            <path d="M16 17v2m0 2v.5" stroke="#0052CC" strokeWidth="1.8" strokeLinecap="round" />
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#FBE8EE" />
+            <circle cx="14" cy="16" r="5" stroke="#9B053F" strokeWidth="2" />
+            <path d="M18 20l8 8" stroke="#9B053F" strokeWidth="2.2" strokeLinecap="round" />
+            <path d="M22 24l2-2" stroke="#9B053F" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </div>
         <h2 id="key-dialog-title" className="key-dialog__title">Введите API-ключ</h2>

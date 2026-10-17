@@ -44,10 +44,10 @@ export function UploadZone({ onFile, disabled, maxMb }: Props) {
         disabled={disabled}
       />
       <div className="upload-zone__icon">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-          <rect width="48" height="48" rx="12" fill="#EBF4FF" />
-          <path d="M24 14v14M24 14l-5 5M24 14l5 5" stroke="#0052CC" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M14 32v2a2 2 0 002 2h16a2 2 0 002-2v-2" stroke="#0052CC" strokeWidth="2.5" strokeLinecap="round"/>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <rect width="52" height="52" rx="14" fill="#FBE8EE" />
+          <path d="M26 15v16M26 15l-6 6M26 15l6 6" stroke="#9B053F" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M15 35v2a2 2 0 002 2h18a2 2 0 002-2v-2" stroke="#9B053F" strokeWidth="2.5" strokeLinecap="round"/>
         </svg>
       </div>
       <p className="upload-zone__title">Перетащите видеофайл или нажмите для выбора</p>
