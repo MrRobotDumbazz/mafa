@@ -67,6 +67,10 @@ def features_to_prims_v1(feat, zones):
             elif in_staff and near_edge and 3 <= d["cells"] <= 40:
                 prims.append(Prim("STATE_SAFE_OPEN", d["t0"], dur=d["t1"] - d["t0"], conf=0.55, frames=(d["t0"], d["t1"])))
     st = feat["stobjs"]
+    cell_region_size = {}
+    for d in det:
+        for ci in d.get("cell_ids", ()):
+            cell_region_size[ci] = d["cells"]
     staff_cells = set()
     if norm:
         ex = (max(0.0, norm[0] - 0.05), max(0.0, norm[1] - 0.05), min(1.0, norm[2] + 0.05), min(1.0, norm[3] + 0.05))
@@ -76,8 +80,9 @@ def features_to_prims_v1(feat, zones):
                 staff_cells.add(ci)
     merge_times = []
     for t, ci, nb in st.merges:
-        if ci in staff_cells and nb in staff_cells:
-            merge_times.append(t)
+        if ci not in staff_cells or nb not in staff_cells:
+            continue
+        merge_times.append(t)
     merged_times = []
     for t in sorted(merge_times):
         if merged_times and t - merged_times[-1] <= 4.0:
@@ -121,6 +126,7 @@ def features_to_prims_v1(feat, zones):
                 bx = (d["box"][0] / w, d["box"][1] / h, d["box"][2] / w, d["box"][3] / h)
                 if _rect_overlap(bx, norm) >= 0.2:
                     prims.append(Prim("STATE_MONEY_TABLE", d["t"], dur=5.0, conf=d["score"], frames=(d["t"],)))
+        t_total = max(1.0, st.t_end)
         if door_box is not None:
             for d in det:
                 if not d["persistent_to_end"]:
@@ -154,7 +160,7 @@ def features_to_prims_v1(feat, zones):
     return prims, clip_list
 
 
-def analyze(video_path, video_id, evidence_dir=None, include_unverified=False, want_frames=True, keep_prims=False, backend="auto", onnx=None):
+def analyze(video_path, video_id, evidence_dir=None, include_unverified=False, want_frames=True, keep_prims=False, backend="auto", onnx=None, dur=0.0):
     if backend in ("auto", "dnn"):
         try:
             import cv2
@@ -165,7 +171,7 @@ def analyze(video_path, video_id, evidence_dir=None, include_unverified=False, w
             ok = False
         if ok:
             import vision
-            feat = vision.extract_features(video_path, backend=backend, onnx=onnx)
+            feat = vision.extract_features(video_path, backend=backend, onnx=onnx, dur=dur)
         else:
             import featurize as A
             feat = A.extract_features(video_path)

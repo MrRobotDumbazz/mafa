@@ -13,9 +13,9 @@ from emit import analyze
 
 def validate_mov(path):
     if not os.path.isfile(path):
-        return f"file not found: {path}"
+        return f"file not found: {path}", None
     if not path.lower().endswith(".mov"):
-        return "only .mov files are supported"
+        return "only .mov files are supported", None
     r = subprocess.run(
         ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=codec_name,width,height",
          "-show_entries", "format=duration", "-of", "json", path],
@@ -31,8 +31,8 @@ def validate_mov(path):
     if dur <= 0:
         return "zero duration"
     if dur > 600:
-        return f"duration {dur:.0f}s exceeds 600s limit"
-    return None
+        return f"duration {dur:.0f}s exceeds 600s limit", None
+    return None, dur
 
 
 def _try_venv_reexec():
@@ -67,7 +67,7 @@ def main():
     ap.add_argument("--evidence-dir", default=os.path.join(BASE, "run_evidence"))
     args = ap.parse_args()
     _try_venv_reexec()
-    err = validate_mov(args.video)
+    err, dur = validate_mov(args.video)
     if err:
         json.dump({"error": err}, sys.stdout, ensure_ascii=False)
         sys.exit(2)
@@ -79,6 +79,7 @@ def main():
         include_unverified=args.include_unverified,
         want_frames=not args.no_frames,
         backend=args.backend,
+        dur=dur or 0.0,
     )
     json.dump(result, sys.stdout, ensure_ascii=False)
     sys.stdout.write("\n")

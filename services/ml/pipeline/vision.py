@@ -129,10 +129,13 @@ class StaticFast:
         return [(d["t0"], d["t1"]) for d in self.segments_detailed(norm_rect=norm_rect, gap=gap, min_dur=min_dur)]
 
 
-def extract_features(path, backend="auto", onnx=None, fps=3.0, w=270, h=480, owl_every=5.0, pose=True):
+def extract_features(path, backend="auto", onnx=None, fps=3.0, w=270, h=480, owl_every=None, dur=0.0, budget_sec=200.0, pose=True):
     import cv2
+    import time as _time
 
     det, backend_name = D.make_backend(backend, onnx)
+    if owl_every is None:
+        owl_every = max(5.0, dur / 12.0) if dur > 0 else 5.0
     reader = RawReader(path, fps=fps, width=w, height=h)
     tracker = ByteLite()
     registry = {}
@@ -157,8 +160,15 @@ def extract_features(path, backend="auto", onnx=None, fps=3.0, w=270, h=480, owl
             pose_model = POSE.make_pose()
         except Exception:
             pose_model = None
+    pose_stride = 2 if (dur <= 0 or dur <= 70) else 3
+    frame_idx = 0
     last_owl_t = -1e9
+    t_start = _time.time()
+    stop_reason = None
     for t, frame in reader:
+        if _time.time() - t_start > budget_sec:
+            stop_reason = "budget"
+            break
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         bright.append(float(gray.mean()))
         dets = det.detect(frame) if backend_name.startswith("dnn") else det.detect(gray.tobytes(), w, h)
@@ -177,7 +187,7 @@ def extract_features(path, backend="auto", onnx=None, fps=3.0, w=270, h=480, owl
                     owl_timeline.append({"t": t, "class": od["class"], "score": od["score"], "box": od["box"]})
             except Exception:
                 owl = None
-        if pose_model is not None and persons:
+        if pose_model is not None and persons and frame_idx % pose_stride == 0:
             persons_sorted = sorted(persons, key=lambda tr: -((tr.box[2] - tr.box[0]) * (tr.box[3] - tr.box[1])))
             for tr in persons_sorted[:2]:
                 try:
@@ -189,6 +199,7 @@ def extract_features(path, backend="auto", onnx=None, fps=3.0, w=270, h=480, owl
                         p = kpts.get(hand)
                         if p:
                             wrists.append((t, tr.tid, p[0], p[1]))
+        frame_idx += 1
     return {
         "kind": "v1",
         "backend": backend_name,
@@ -202,4 +213,6 @@ def extract_features(path, backend="auto", onnx=None, fps=3.0, w=270, h=480, owl
         "person_boxes_by_t": person_boxes_by_t,
         "owl": owl_timeline,
         "wrists": wrists,
+        "owl_every": owl_every,
+        "stop_reason": stop_reason,
     }

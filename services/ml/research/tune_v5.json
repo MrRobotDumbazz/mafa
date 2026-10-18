@@ -1,0 +1,222 @@
+{
+ "X-10": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-11": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-12": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-15": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-17": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-18": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-20": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-22": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "CASH_MIXED_WORN",
+    "t": 17.3
+   },
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 19.3
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-23": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 16.7
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-25": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 27.0
+   },
+   {
+    "type": "CNT_UNATTENDED",
+    "t": 27.0
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-26": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_DOOR_OPEN",
+    "t": 9.0
+   },
+   {
+    "type": "ROOM_MONEY_ON_TABLE",
+    "t": 14.7
+   },
+   {
+    "type": "CNT_UNATTENDED",
+    "t": 14.7
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-28": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_DOOR_OPEN",
+    "t": 6.0
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-29": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_DOOR_OPEN",
+    "t": 5.3
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-3": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-31": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_DOOR_OPEN",
+    "t": 5.3
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-33": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_DOOR_OPEN",
+    "t": 5.3
+   },
+   {
+    "type": "CASH_MIXED_WORN",
+    "t": 9.3
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-35": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-38": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-39": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-4": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-40": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "ROOM_DOOR_OPEN",
+    "t": 5.3
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-43": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-44": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-45": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "CASH_MIXED_WORN",
+    "t": 7.3
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-46": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-47": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-48": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-5": {
+  "verdict": "clean",
+  "events": [],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ },
+ "X-8": {
+  "verdict": "violation",
+  "events": [
+   {
+    "type": "CASH_MIXED_WORN",
+    "t": 28.3
+   }
+  ],
+  "sec": "ml-v0.2-perception-yolox/dnn:yolov5n_v7.0.onnx"
+ }
+}
