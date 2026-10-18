@@ -6,7 +6,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .mlpipe.base import MLResult
-from .mlpipe.mock import MockPipeline
 from .normatives import enrich, load_catalog
 
 
@@ -43,7 +42,7 @@ def _violation_dict(e):
 class JobStore:
     def __init__(
         self,
-        pipeline: MockPipeline,
+        pipeline,
         timeout_sec: float = 300.0,
         workers: int = 2,
         catalog_path: Path | None = None,

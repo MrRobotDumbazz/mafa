@@ -48,7 +48,7 @@ FORTE_API_KEY=<ключ> docker compose up -d --build
 | Переменная | По умолчанию | Назначение |
 |---|---|---|
 | `FORTE_API_KEY` / `FORTE_API_KEYS` | — | ключ(и) жюри, через запятую; без них API отдаёт 503 |
-| `FORTE_PIPELINE_CMD` | пусто (мок) | команда реального пайплайна (см. выше) |
+| `FORTE_PIPELINE_CMD` | `python3 ../ml/run.py` — реальный ML зоны ml (мок удалён 2026-10-18; переопределяется при необходимости) | команда пайплайна (см. выше) |
 | `FORTE_STATIC_DIR` | пусто (выкл.) | каталог `dist/` фронтенда: backend раздаёт сайт (`/`, ассеты, SPA-fallback) |
 | `FORTE_WEB_KEYLESS` | 1 | `/web/api/v1/*` — маршрут сайта без ключа; `/api/v1/*` (жюри) **всегда** строго с `X-API-Key` (раздел 10 ТЗ) |
 | `FORTE_VIOLATION_CATALOG` | `contracts/violation_catalog.yaml` | каталог нормативов: пункты с `verified: true` подмешиваются в `violation.normative` по `type` |

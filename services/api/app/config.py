@@ -12,7 +12,7 @@ class Settings:
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         self.max_upload_bytes = int(os.getenv("FORTE_MAX_UPLOAD_MB", "200")) * 1024 * 1024
         self.job_timeout_sec = float(os.getenv("FORTE_JOB_TIMEOUT_SEC", "300"))
-        self.pipeline_cmd = os.getenv("FORTE_PIPELINE_CMD", "")
+        self.pipeline_cmd = os.getenv("FORTE_PIPELINE_CMD") or f"python3 {base.parent / 'ml' / 'run.py'}"
         static_dir_env = os.getenv("FORTE_STATIC_DIR", "")
         self.static_dir = Path(static_dir_env) if static_dir_env else None
         self.web_keyless = os.getenv("FORTE_WEB_KEYLESS", "1") == "1"

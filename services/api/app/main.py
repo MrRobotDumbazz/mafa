@@ -10,20 +10,11 @@ from .errors import ApiError
 from .extract import probe_duration_sec
 from .jobs import JobStore
 from .mlpipe.external import ExternalPipeline
-from .mlpipe.mock import MockPipeline
 from .multipart import parse_multipart
 
 settings = get_settings()
-
-
-def _build_pipeline():
-    if settings.pipeline_cmd:
-        return ExternalPipeline(settings.pipeline_cmd)
-    return MockPipeline()
-
-
 store = JobStore(
-    _build_pipeline(),
+    ExternalPipeline(settings.pipeline_cmd),
     timeout_sec=settings.job_timeout_sec,
     catalog_path=settings.violation_catalog,
 )
