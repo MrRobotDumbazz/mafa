@@ -72,15 +72,26 @@ def main():
         json.dump({"error": err}, sys.stdout, ensure_ascii=False)
         sys.exit(2)
     video_id = args.video_id or os.path.splitext(os.path.basename(args.video))[0]
-    result = analyze(
-        args.video,
-        video_id,
-        evidence_dir=None if args.no_frames else args.evidence_dir,
-        include_unverified=args.include_unverified,
-        want_frames=not args.no_frames,
-        backend=args.backend,
-        dur=dur or 0.0,
-    )
+    try:
+        result = analyze(
+            args.video,
+            video_id,
+            evidence_dir=None if args.no_frames else args.evidence_dir,
+            include_unverified=args.include_unverified,
+            want_frames=not args.no_frames,
+            backend=args.backend,
+            dur=dur or 0.0,
+        )
+    except Exception:
+        import traceback
+
+        traceback.print_exc()
+        result = {
+            "video_id": video_id,
+            "pipeline_version": "degraded-empty",
+            "summary": {"note": "analysis failed; degraded to empty events (see server stderr)"},
+            "events": [],
+        }
     json.dump(result, sys.stdout, ensure_ascii=False)
     sys.stdout.write("\n")
 
