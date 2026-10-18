@@ -61,4 +61,11 @@ RECV_LEFT_STATION (п. 22) · RECV_FUNDS_ACCESSIBLE / ROOM_MONEY_ON_TABLE (п. 2
 
 ## Команда
 
-P1 (backend/координация — агент W1 opencode) · P2 (ML — агент W3) · P3 (фронтенд — агент W2 Claude Code) · P4 (тестирование — агент W4 Codex). Управление: ZTACP (`docs/ztacp-pattern.md`), план: `PLAN.md`.
+| Зона | Человек | ИИ-агент |
+|---|---|---|
+| backend + координация | **Abay Mukhametali** (P1) | W1 (opencode/GLM) |
+| ML-ядро | **Maxat Kenbayev** (P2) | W3 |
+| фронтенд | **Fatima Zhulmanova** (P3) | W2 (Claude Code) |
+| тестирование | **Almaz Baimakhan** (P4) | W4 (Codex) |
+
+4 человека + 4 ИИ-агента разных вендоров в одном репо. Управление: ZTACP (`docs/ztacp-pattern.md`), план: `PLAN.md`.

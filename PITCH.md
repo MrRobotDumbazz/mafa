@@ -114,10 +114,10 @@ ML-пайплайн: YOLOv5n (люди) → трекинг → зоны
 
 | Зона | Человек | ИИ-агент |
 |---|---|---|
-| backend + координация | P1 | W1 (opencode/GLM) |
-| ML-ядро | P2 | W3 |
-| фронтенд | P3 | W2 (Claude Code) |
-| тестирование | P4 | W4 (Codex) |
+| backend + координация | Abay Mukhametali (P1) | W1 (opencode/GLM) |
+| ML-ядро | Maxat Kenbayev (P2) | W3 |
+| фронтенд | Fatima Zhulmanova (P3) | W2 (Claude Code) |
+| тестирование | Almaz Baimakhan (P4) | W4 (Codex) |
 
 4 человека + **4 агента разных вендоров в одном репо** — ноль конфликтов: конституция ZTACP, зоны, контракты, полная история в git.
 
