@@ -1,0 +1,595 @@
+{
+ "tune": {
+  "X-10": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 37.7
+  },
+  "X-11": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 11.3
+    }
+   ],
+   "sec": 48.1
+  },
+  "X-12": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 13.0
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 26.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 32.3
+    }
+   ],
+   "sec": 83.7
+  },
+  "X-15": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 16.0
+    }
+   ],
+   "sec": 44.6
+  },
+  "X-17": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 3.3
+    },
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 5.3
+    }
+   ],
+   "sec": 29.4
+  },
+  "X-18": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    }
+   ],
+   "sec": 48.7
+  },
+  "X-20": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    }
+   ],
+   "sec": 26.8
+  },
+  "X-22": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 14.7
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 19.3
+    }
+   ],
+   "sec": 45.1
+  },
+  "X-23": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 13.3
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 16.7
+    }
+   ],
+   "sec": 36.9
+  },
+  "X-25": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 9.7
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 27.0
+    },
+    {
+     "type": "CNT_UNATTENDED",
+     "t": 27.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 28.3
+    }
+   ],
+   "sec": 64.4
+  },
+  "X-26": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 9.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 11.0
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 14.7
+    },
+    {
+     "type": "CNT_UNATTENDED",
+     "t": 14.7
+    }
+   ],
+   "sec": 39.6
+  },
+  "X-28": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 6.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.7
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 14.3
+    }
+   ],
+   "sec": 35.2
+  },
+  "X-29": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.7
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 14.0
+    }
+   ],
+   "sec": 35.1
+  },
+  "X-3": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    }
+   ],
+   "sec": 39.8
+  },
+  "X-31": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 8.0
+    }
+   ],
+   "sec": 46.5
+  },
+  "X-33": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.0
+    },
+    {
+     "type": "RECV_NO_ID",
+     "t": 10.0
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 11.0
+    }
+   ],
+   "sec": 28.1
+  },
+  "X-35": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 1.0
+    }
+   ],
+   "sec": 115.7
+  },
+  "X-38": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    },
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    }
+   ],
+   "sec": 115.7
+  },
+  "X-39": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 1.0
+    },
+    {
+     "type": "RECV_NO_ID",
+     "t": 44.7
+    }
+   ],
+   "sec": 155.6
+  },
+  "X-4": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    }
+   ],
+   "sec": 147.9
+  },
+  "X-40": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 8.7
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 15.3
+    }
+   ],
+   "sec": 49.9
+  },
+  "X-43": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 48.2
+  },
+  "X-44": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 40.0
+  },
+  "X-45": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.3
+    }
+   ],
+   "sec": 66.9
+  },
+  "X-46": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    }
+   ],
+   "sec": 38.8
+  },
+  "X-47": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    }
+   ],
+   "sec": 148.1
+  },
+  "X-48": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    }
+   ],
+   "sec": 141.1
+  },
+  "X-5": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    }
+   ],
+   "sec": 142.7
+  },
+  "X-8": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 28.3
+    }
+   ],
+   "sec": 78.4
+  }
+ },
+ "hold": {
+  "X-1": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    }
+   ],
+   "sec": 52.5
+  },
+  "X-13": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 2.0
+    },
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.7
+    },
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 5.7
+    },
+    {
+     "type": "RECV_NO_ID",
+     "t": 39.7
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 63.3
+    }
+   ],
+   "sec": 129.1
+  },
+  "X-14": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    },
+    {
+     "type": "RECV_NO_ID",
+     "t": 6.7
+    },
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 6.7
+    },
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 34.3
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 35.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 41.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 53.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 110.0
+    },
+    {
+     "type": "RECV_NO_ID",
+     "t": 126.0
+    }
+   ],
+   "sec": 282.9
+  },
+  "X-16": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 1.7
+    },
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 5.3
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 13.0
+    }
+   ],
+   "sec": 48.4
+  },
+  "X-19": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    },
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 5.3
+    }
+   ],
+   "sec": 121.1
+  },
+  "X-2": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.0
+    }
+   ],
+   "sec": 37.3
+  },
+  "X-21": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    }
+   ],
+   "sec": 38.3
+  },
+  "X-24": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 9.0
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 11.0
+    }
+   ],
+   "sec": 28.0
+  },
+  "X-27": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 19.0
+    }
+   ],
+   "sec": 55.9
+  },
+  "X-30": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 8.3
+    },
+    {
+     "type": "RECV_NO_ID",
+     "t": 12.3
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 13.7
+    }
+   ],
+   "sec": 38.1
+  },
+  "X-32": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 13.7
+    }
+   ],
+   "sec": 45.5
+  },
+  "X-34": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 0.7
+    }
+   ],
+   "sec": 41.3
+  },
+  "X-37": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_NO_ID",
+     "t": 1.7
+    },
+    {
+     "type": "ROOM_DOOR_OPEN",
+     "t": 5.3
+    }
+   ],
+   "sec": 39.0
+  }
+ }
+}

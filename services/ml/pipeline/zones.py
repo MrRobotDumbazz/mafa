@@ -14,6 +14,21 @@ class Zones:
         self.client_windows = []
         self._build()
 
+    def entry_zone(self, w, h):
+        firsts = [(tr.pts[0][1] / w, tr.pts[0][2] / h) for tr in self.tracks if tr.pts]
+        if not firsts:
+            return None
+        n = len(firsts)
+        best = None
+        best_cnt = 0
+        for i, (x, y) in enumerate(firsts):
+            cnt = sum(1 for x2, y2 in firsts if abs(x - x2) < 0.12 and abs(y - y2) < 0.12)
+            if cnt > best_cnt:
+                best_cnt, best = cnt, (x, y)
+        if best is None or best_cnt < max(2, n // 3):
+            return None
+        return (max(0.0, best[0] - 0.12), max(0.0, best[1] - 0.12), min(1.0, best[0] + 0.12), min(1.0, best[1] + 0.12))
+
     def _spread(self, tr):
         xs = [p[1] for p in tr.pts]
         ys = [p[2] for p in tr.pts]
@@ -47,10 +62,20 @@ class Zones:
             else:
                 self.client_windows.append([a, b])
 
-    def cashier_out_segments(self, min_dur=2.0):
+    def cashier_out_segments(self, min_dur=2.0, wide=False):
         if self.cashier is None or self.staff_rect is None:
             return []
-        x0, y0, x1, y1 = self.staff_rect
+        if wide:
+            xs = [p[1] for p in self.cashier.pts]
+            ys = [p[2] for p in self.cashier.pts]
+            x0 = max(0.0, percentile(xs, 0.05) - 10)
+            x1 = percentile(xs, 0.95) + 10
+            y0 = max(0.0, percentile(ys, 0.05) - 10)
+            y1 = percentile(ys, 0.95) + 10
+            box = (x0, y0, x1, y1)
+        else:
+            box = self.staff_rect
+        x0, y0, x1, y1 = box
         segs = []
         s = None
         for t, cx, cy in self.cashier.pts:

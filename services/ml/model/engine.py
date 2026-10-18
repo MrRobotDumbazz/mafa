@@ -35,6 +35,8 @@ class EngineConfig:
     leave_gap: float = 2.0
     max_evidence_frames: int = 3
     enable_steps: bool = True
+    observe_doc: bool = False
+    observe_count: bool = False
 
 
 def _cap(conf, dur, min_dur):
@@ -117,10 +119,86 @@ class Engine:
     def _money_rules(self, prims, out):
         client_leaves = sorted(p.t for p in prims if p.kind == "ZONE_LEAVE" and p.who.startswith("client"))
         leaves_station = [(p.t, p.t + p.dur) for p in prims if p.kind == "LEAVE_STATION"]
+        receive_windows = [(p.args.get("t0", p.t), p.args.get("t1", p.t + p.dur)) for p in prims if p.kind == "OP_CLS" and p.args.get("op") == "receive"]
+        issue_windows = [(p.args.get("t0", p.t), p.args.get("t1", p.t + p.dur)) for p in prims if p.kind == "OP_CLS" and p.args.get("op") == "issue"]
+        doc_times = [p.t for p in prims if p.kind == "DOC_SHOW"]
+        count_times = [p.t for p in prims if p.kind in ("COUNT_MONEY", "COUNT_MACHINE")]
+        if self.cfg.observe_doc:
+            for w0, w1 in receive_windows:
+                if w1 - w0 < 6.0:
+                    continue
+                if not any(w0 <= dt_ <= w1 for dt_ in doc_times):
+                    out.append(
+                        Violation(
+                            label="RECV_NO_ID",
+                            rule="doc_missing",
+                            channel="client",
+                            t_start=w0,
+                            t_end=w1,
+                            conf=0.55,
+                            note="документ, удостоверяющий личность, не наблюдался в течение операции приёма",
+                        )
+                    )
+        if self.cfg.observe_count:
+            for w0, w1 in issue_windows:
+                if w1 - w0 < 6.0:
+                    continue
+                if not any(w0 <= ct <= w1 for ct in count_times):
+                    out.append(
+                        Violation(
+                            label="ISSUE_NO_RECOUNT",
+                            rule="count_missing",
+                            channel="employee",
+                            t_start=w0,
+                            t_end=w1,
+                            conf=0.5,
+                            note="пересчёт подготовленной суммы при клиенте не наблюдался",
+                        )
+                    )
+        fired = set()
+        last_by_label = {}
         for p in prims:
+            if p.kind == "PILE_MERGE":
+                label = "CASH_MIXED_WORN"
+                for w0, w1 in receive_windows:
+                    if w0 <= p.t <= w1:
+                        label = "RECV_MIXED_FUNDS"
+                        break
+                if p.t - last_by_label.get(label, -1e9) < 6.0:
+                    continue
+                last_by_label[label] = p.t
+                out.append(
+                    Violation(
+                        label=label,
+                        rule="pile_merge_global",
+                        channel="employee",
+                        t_start=p.t,
+                        t_end=p.t + max(p.dur, 1.0),
+                        conf=_cap(p.conf, p.dur, 0.0),
+                        frames=p.frames[: self.cfg.max_evidence_frames],
+                        note="два соседних скопления денег/вещей объединены",
+                    )
+                )
             if p.kind != "STATE_MONEY_TABLE":
                 continue
             seg = (p.t, p.t + p.dur)
+            for w0, w1 in receive_windows:
+                ov = min(seg[1], w1) - max(seg[0], w0)
+                if ov >= 8.0 and p.t not in fired:
+                    fired.add(p.t)
+                    out.append(
+                        Violation(
+                            label="RECV_FUNDS_ACCESSIBLE",
+                            rule="money_accessible_client",
+                            channel="employee",
+                            t_start=max(seg[0], w0),
+                            t_end=min(seg[1], w1),
+                            conf=_cap(p.conf, ov, 8.0),
+                            frames=p.frames[: self.cfg.max_evidence_frames],
+                            note="static money in staff zone during client service",
+                        )
+                    )
+                    break
             for lv in leaves_station:
                 if seg[0] <= lv[0] and lv[1] - seg[0] >= SC.MONEY_NO_CASHIER_MIN_DUR:
                     out.append(
@@ -188,18 +266,6 @@ class Engine:
                         t_start=p.t,
                         t_end=p.t + p.dur,
                         conf=_cap(p.conf, p.dur, self.cfg.leave_gap),
-                        frames=p.frames[: self.cfg.max_evidence_frames],
-                    )
-                )
-            if p.kind == "PILE_MERGE":
-                out.append(
-                    Violation(
-                        label=opdef.pile_merge_label,
-                        rule=f"{opdef.op}:pile_merge",
-                        channel="employee",
-                        t_start=p.t,
-                        t_end=p.t + max(p.dur, 1.0),
-                        conf=_cap(p.conf, p.dur, 0.0),
                         frames=p.frames[: self.cfg.max_evidence_frames],
                     )
                 )

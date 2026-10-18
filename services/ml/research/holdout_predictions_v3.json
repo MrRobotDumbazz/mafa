@@ -1,0 +1,423 @@
+{
+ "tune": {
+  "X-10": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 12.1
+  },
+  "X-11": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 11.3
+    }
+   ],
+   "sec": 16.7
+  },
+  "X-12": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 13.0
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 26.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 32.3
+    }
+   ],
+   "sec": 26.7
+  },
+  "X-15": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 16.0
+    }
+   ],
+   "sec": 13.1
+  },
+  "X-17": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 5.3
+    }
+   ],
+   "sec": 9.1
+  },
+  "X-18": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 14.4
+  },
+  "X-20": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 7.6
+  },
+  "X-22": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 14.7
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 19.3
+    }
+   ],
+   "sec": 13.9
+  },
+  "X-23": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 13.3
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 16.7
+    }
+   ],
+   "sec": 11.6
+  },
+  "X-25": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 9.7
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 27.0
+    },
+    {
+     "type": "CNT_UNATTENDED",
+     "t": 27.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 28.3
+    }
+   ],
+   "sec": 19.8
+  },
+  "X-26": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 11.0
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 14.7
+    },
+    {
+     "type": "CNT_UNATTENDED",
+     "t": 14.7
+    }
+   ],
+   "sec": 12.6
+  },
+  "X-28": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.7
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 14.3
+    }
+   ],
+   "sec": 10.6
+  },
+  "X-29": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.7
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 14.0
+    }
+   ],
+   "sec": 11.3
+  },
+  "X-3": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 12.9
+  },
+  "X-31": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 8.0
+    }
+   ],
+   "sec": 15.3
+  },
+  "X-33": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.0
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 11.0
+    }
+   ],
+   "sec": 9.6
+  },
+  "X-35": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 35.2
+  },
+  "X-38": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 37.6
+  },
+  "X-39": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 49.6
+  },
+  "X-4": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 45.0
+  },
+  "X-40": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 8.7
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 15.3
+    }
+   ],
+   "sec": 15.8
+  },
+  "X-43": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 14.5
+  },
+  "X-44": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 12.7
+  },
+  "X-45": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 7.3
+    }
+   ],
+   "sec": 20.9
+  },
+  "X-46": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 12.2
+  },
+  "X-47": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 45.8
+  },
+  "X-48": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 44.9
+  },
+  "X-5": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 44.4
+  },
+  "X-8": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 28.3
+    }
+   ],
+   "sec": 23.7
+  }
+ },
+ "hold": {
+  "X-1": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 18634.8
+  },
+  "X-13": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 5.7
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 63.3
+    }
+   ],
+   "sec": 41.7
+  },
+  "X-14": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 6.7
+    },
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 34.3
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 35.3
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 41.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 53.0
+    },
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 110.0
+    }
+   ],
+   "sec": 88.3
+  },
+  "X-16": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 5.3
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 13.0
+    }
+   ],
+   "sec": 14.0
+  },
+  "X-19": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "RECV_FUNDS_ACCESSIBLE",
+     "t": 5.3
+    }
+   ],
+   "sec": 35.5
+  },
+  "X-2": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 10.6
+  },
+  "X-21": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 12.3
+  },
+  "X-24": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 9.0
+    },
+    {
+     "type": "ROOM_MONEY_ON_TABLE",
+     "t": 11.0
+    }
+   ],
+   "sec": 9.3
+  },
+  "X-27": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 19.0
+    }
+   ],
+   "sec": 16.6
+  },
+  "X-30": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 8.3
+    },
+    {
+     "type": "RECV_MIXED_FUNDS",
+     "t": 13.7
+    }
+   ],
+   "sec": 12.0
+  },
+  "X-32": {
+   "verdict": "violation",
+   "events": [
+    {
+     "type": "CASH_MIXED_WORN",
+     "t": 13.7
+    }
+   ],
+   "sec": 13.3
+  },
+  "X-34": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 11.1
+  },
+  "X-37": {
+   "verdict": "clean",
+   "events": [],
+   "sec": 10.1
+  }
+ }
+}
